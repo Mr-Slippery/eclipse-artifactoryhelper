@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="artifactoryChecker"
+         name="Artifactory Target Checker"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="ro.aquacola.artifactory.helper.builder.ArtifactoryCheckerBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="artifactoryNature"
+         name="Artifactory Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="ro.aquacola.artifactory.helper.builder.ArtifactoryNature">
+         </run>
+      </runtime>
+      <builder
+            id="ro.aquacola.artifactory.helper.artifactoryChecker">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="Artifactory Nature commands"
+            id="ro.aquacola.artifactory.helper.artifactoryNature.category">
+      </category>
+      <command
+            name="Add/RemoveArtifactory Nature"
+            defaultHandler="ro.aquacola.artifactory.helper.builder.AddRemoveArtifactoryNatureHandler"
+            categoryId="ro.aquacola.artifactory.helper.artifactoryNature.category"
+            id="ro.aquacola.artifactory.helper.addRemoveArtifactoryNature">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.projectConfigure?after=additions">
+         <command
+               commandId="ro.aquacola.artifactory.helper.addRemoveArtifactoryNature"
+               label="Remove Artifactory nature"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IProject">
+                        <test
+                              value="ro.aquacola.artifactory.helper.artifactoryNature"
+                              property="org.eclipse.core.resources.projectNature">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="ro.aquacola.artifactory.helper.addRemoveArtifactoryNature"
+               label="Add Artifactory nature"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IProject">
+                        <not>
+                           <test
+                                 value="ro.aquacola.artifactory.helper.artifactoryNature"
+                                 property="org.eclipse.core.resources.projectNature">
+                           </test>
+                        </not>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         id="artifactoryProblem"
+         name="Artifactory Problem"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+      point = "org.eclipse.ui.preferencePages">
+       <page id="ro.aquacola.artifactory.helper.ui.Page1"
+	    class="ro.aquacola.artifactory.helper.ui.ArtifactoryPreferencePage"
+            name="Artifactory Helper">
+       </page>
+   </extension>
+</plugin>
