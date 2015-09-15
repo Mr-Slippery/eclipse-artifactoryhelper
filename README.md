@@ -4,7 +4,7 @@ Small build helper that checks target definition files for proper id for Artifac
 The role of this helper builder is to prevent errors due to Maven not resolving the artifacts in Artifactory repos.
 
 Usually these are given a certain id, such as
-<repository id="artifactory" location="http://your.artifactory.com/repo">
+&lt;repository id="artifactory" location="http://your.artifactory.com/repo"&gt;
 
 The problem is, due to editing with different tools or mistakes, the id can be deleted, and then your artifacts might no longer be resolved by Maven.
 
