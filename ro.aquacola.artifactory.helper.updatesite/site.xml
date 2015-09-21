@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="Artifactory Helper">
+      Artifactory Helper
+   </description>
+   <feature url="features/ro.aquacola.artifatory.helper.feature_1.0.0.201509211859.jar" id="ro.aquacola.artifatory.helper.feature" version="1.0.0.201509211859">
+      <category name="artifactory_helper"/>
+   </feature>
+   <category-def name="artifactory_helper" label="Artifactory Helper"/>
+</site>
