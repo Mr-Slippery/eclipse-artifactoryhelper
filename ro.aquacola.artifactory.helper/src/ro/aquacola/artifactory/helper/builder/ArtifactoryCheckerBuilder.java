@@ -94,8 +94,8 @@ public class ArtifactoryCheckerBuilder extends IncrementalProjectBuilder {
 
 	    private void checkArtifactoryId(String repositoryLocation, Attributes attributes) throws SAXException {
 			String repositoryId = repositoryId(attributes);
-			if (null == repositoryId || !artifactoryId.equals(repositoryId)) {
-				String message = "Artifactory repository should have id=" + artifactoryId;
+			if (null == repositoryId || !repositoryId.contains(artifactoryId)) {
+				String message = "Artifactory repository should have id=*" + artifactoryId + "*";
 				SAXParseException saxParseException = new SAXParseException(message, repositoryLocation, "", 
 						locator.getLineNumber(), locator.getColumnNumber());
 				warning(saxParseException);
